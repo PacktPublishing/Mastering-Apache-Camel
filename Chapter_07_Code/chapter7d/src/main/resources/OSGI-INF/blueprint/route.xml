@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="checker" class="com.packt.camel.chapter7d.Checker"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <errorHandler id="myNoErrorHandler" type="NoErrorHandler"/>
+        <route errorHandlerRef="myNoErrorHandler">
+            <from uri="jetty:http://0.0.0.0:9999/my/route"/>
+            <to uri="bean:checker"/>
+        </route>
+    </camelContext>
+
+</blueprint>

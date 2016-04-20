@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="prependProcessor" class="com.packt.camel.chapter5e.PrependProcessor"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="file:/tmp/in"/>
+            <process ref="prependProcessor"/>
+            <to uri="file:/tmp/out"/>
+        </route>
+    </camelContext>
+
+</blueprint>

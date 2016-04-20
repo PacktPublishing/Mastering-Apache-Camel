@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="aggregator" class="com.packt.camel.chapter5r.MyAggregator"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="file:/tmp/in"/>
+            <split strategyRef="aggregator">
+                <xpath>//person</xpath>
+                <to uri="log:person"/>
+            </split>
+            <to uri="log:persons"/>
+        </route>
+    </camelContext>
+
+</blueprint>

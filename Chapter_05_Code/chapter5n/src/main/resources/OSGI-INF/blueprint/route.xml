@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="routerBean" class="com.packt.camel.chapter5n.RouterBean"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="timer:fire?period=5000"/>
+            <setBody>
+                <constant>Hello chapter5n</constant>
+            </setBody>
+            <setHeader headerName="recipientList">
+                <method bean="routerBean" method="populate"/>
+            </setHeader>
+            <recipientList delimiter=",">
+                <header>recipientList</header>
+            </recipientList>
+        </route>
+        <route>
+            <from uri="direct:one"/>
+            <to uri="log:one"/>
+        </route>
+        <route>
+            <from uri="direct:two"/>
+            <to uri="log:two"/>
+        </route>
+        <route>
+            <from uri="direct:three"/>
+            <to uri="log:three"/>
+        </route>
+    </camelContext>
+
+</blueprint>

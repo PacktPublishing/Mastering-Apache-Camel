@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="timer:first?period=1000"/>
+	    <setBody><constant>Hello chapter5w</constant></setBody>
+            <loadBalance>
+                 <roundRobin/>
+                 <to uri="direct:one"/>
+                 <to uri="direct:two"/>
+                 <to uri="direct:three"/>
+            </loadBalance>
+        </route>
+        <route>
+            <from uri="direct:one"/>
+            <to uri="log:one"/>
+        </route>
+        <route>
+            <from uri="direct:two"/>
+            <to uri="log:two"/>
+        </route>
+        <route>
+            <from uri="direct:three"/>
+            <to uri="log:three"/>
+        </route>
+    </camelContext>
+
+</blueprint>

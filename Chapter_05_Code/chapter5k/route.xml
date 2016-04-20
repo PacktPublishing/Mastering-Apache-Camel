@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="file:/tmp/in"/>
+            <filter>
+                 <xpath>//name='jbonofre'</xpath>
+                 <to uri="direct:next"/>
+            </filter>
+        </route>
+        <route>
+            <from uri="direct:next"/>
+            <convertBodyTo type="java.lang.String"/>
+            <to uri="log:file"/>
+        </route>
+    </camelContext>
+
+</blueprint>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="timer:fire?period=1000"/>
+            <setBody>
+               <constant>Hello chapter5i</constant>
+            </setBody>
+            <to uri="file:/tmp/exchange"/>
+        </route>
+    </camelContext>
+
+</blueprint>

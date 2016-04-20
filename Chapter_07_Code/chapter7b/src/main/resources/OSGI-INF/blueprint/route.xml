@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="checker" class="com.packt.camel.chapter7b.Checker"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route errorHandlerRef="myDeadLetterErrorHandler">
+            <from uri="jetty:http://0.0.0.0:9999/my/route"/>
+            <to uri="bean:checker"/>
+        </route>
+        <route>
+            <from uri="direct:error"/>
+            <convertBodyTo type="java.lang.String"/>
+            <to uri="log:error"/>
+        </route>
+    </camelContext>
+
+    <bean id="myDeadLetterErrorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder">
+        <property name="deadLetterUri" value="direct:error"/>
+        <property name="redeliveryPolicy" ref="myRedeliveryPolicyConfig"/>
+    </bean>
+ 
+    <bean id="myRedeliveryPolicyConfig" class="org.apache.camel.processor.RedeliveryPolicy">
+        <property name="maximumRedeliveries" value="3"/>
+        <property name="redeliveryDelay" value="5000"/>
+    </bean>
+
+</blueprint>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="step1" class="com.packt.camel.chapter5b.Step1Bean"/>
+
+    <bean id="step2" class="com.packt.camel.chapter5b.Step2Bean"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="timer:fire?period=5000"/>
+            <setBody>
+                <constant>Hello Chapter5b</constant>
+            </setBody>
+            <pipeline>
+		<bean ref="step1"/>
+		<bean ref="step2"/>
+		<to uri="log:pipeline"/>
+	    </pipeline>
+        </route>
+    </camelContext>
+
+</blueprint>

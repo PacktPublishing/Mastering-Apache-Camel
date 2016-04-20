@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="timer:first?period=2000"/>
+	    <setBody><constant>one</constant></setBody>
+            <to uri="direct:resequencer"/>
+        </route>
+        <route>
+            <from uri="timer:second?period=2000"/>
+	    <setBody><constant>two</constant></setBody>
+            <to uri="direct:resequencer"/>
+        </route>
+        <route>
+	     <from uri="direct:resequencer"/>
+             <resequence>
+                <simple>body</simple>
+                <to uri="log:requencer"/>
+             </resequence>
+	</route>
+    </camelContext>
+
+</blueprint>

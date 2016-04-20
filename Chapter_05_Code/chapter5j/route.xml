@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="file:/tmp/in"/>
+            <choice>
+                <when>
+                   <xpath>//address='France'</xpath>
+                   <to uri="file:/tmp/out/france"/>
+                </when>
+                <when>
+                   <xpath>//address='USA'</xpath>
+                   <to uri="file:/tmp/out/usa"/>
+                </when>
+                <otherwise>
+                   <to uri="file:/tmp/out/others"/>
+                </otherwise>
+            </choice>
+        </route>
+    </camelContext>
+
+</blueprint>

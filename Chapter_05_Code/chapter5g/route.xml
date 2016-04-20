@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="vm://broker"/>
+    </bean>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="timer:fire?period=1000"/>
+            <setBody>
+               <constant>Hello chapter5g</constant>
+            </setBody>
+            <to uri="jms:queue:input?connectionFactory=#amqConnectionFactory"/>
+        </route>
+        <route>
+            <from uri="jms:queue:input?connectionFactory=#amqConnectionFactory"/>
+            <delay>
+                <constant>2000</constant>
+            </delay>
+            <to uri="log:consumer1"/>
+        </route>
+        <route>
+            <from uri="jms:queue:input?connectionFactory=#amqConnectionFactory"/>
+            <delay>
+                <constant>2000</constant>
+            </delay>
+            <to uri="log:consumer2"/>
+        </route>
+    </camelContext>
+
+</blueprint>

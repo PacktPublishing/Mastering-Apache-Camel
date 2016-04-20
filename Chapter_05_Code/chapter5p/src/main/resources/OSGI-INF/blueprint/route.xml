@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="aggregator" class="com.packt.camel.chapter5p.StringAggregator"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="timer:fire?period=5000"/>
+            <setBody>
+                <constant>Hello chapter5p</constant>
+            </setBody>
+            <setHeader headerName="id">
+                <constant>same</constant>
+            </setHeader>
+            <aggregate strategyRef="aggregator" completionSize="5">
+                <correlationExpression>
+                    <simple>header.id</simple>
+                </correlationExpression>
+                <to uri="log:aggregated"/>
+            </aggregate>
+        </route>
+    </camelContext>
+
+</blueprint>

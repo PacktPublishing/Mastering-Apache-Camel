@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+   
+    <bean id="illegalArgumentException" class="java.lang.IllegalArgumentException">
+        <argument value="Booooommmmm"/>
+    </bean>
+    <bean id="illegalStateException" class="java.lang.IllegalStateException">
+        <argument value="Kaboooommmmm"/>
+    </bean>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <onException>
+            <exception>java.lang.IllegalArgumentException</exception>
+            <redeliveryPolicy maximumRedeliveries="2" redeliveryDelay="1000"/>
+        </onException>
+        <onException>
+            <exception>java.lang.IllegalStateException</exception>
+            <to uri="direct:error"/>
+        </onException>
+        <route>
+            <from uri="jetty:http://0.0.0.0:9999/my/route"/>
+            <throwException ref="illegalArgumentException"/>
+        </route>
+        <route>
+            <from uri="jetty:http://0.0.0.0:8888/my/route"/>
+            <throwException ref="illegalStateException"/>
+        </route> 
+        <route>
+            <from uri="direct:error"/>
+            <convertBodyTo type="java.lang.String"/>
+            <to uri="log:error"/>
+        </route>
+    </camelContext>
+
+</blueprint>

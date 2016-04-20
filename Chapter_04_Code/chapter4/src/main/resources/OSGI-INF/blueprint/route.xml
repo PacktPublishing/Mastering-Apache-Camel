@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="myBean" class="com.packt.camel.chapter4.MyBean"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="timer:fire?period=5000"/>
+            <setBody><constant>Hello Chapter4</constant></setBody>
+            <to uri="bean:myBean"/>
+            <setHeader headerName="myHeaderSetByTheBean">
+                <method bean="myBean" method="setMyHeader"/>
+            </setHeader>
+            <to uri="log:blueprintRoute"/>
+        </route>
+    </camelContext>
+
+</blueprint>
