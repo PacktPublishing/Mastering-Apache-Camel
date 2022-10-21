@@ -17,3 +17,7 @@ a comprehensive look into Camel before jumping into the details.
 * [Instant Apache Camel Message Routing](https://www.packtpub.com/application-development/instant-apache-camel-message-routing?utm_source=github&utm_medium=repository&utm_campaign=9781783283477)
 * [Apache Camel Developer's Cookbook](https://www.packtpub.com/application-development/apache-camel-developers-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781782170303)
 
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781782173151">https://packt.link/free-ebook/9781782173151 </a> </p>
