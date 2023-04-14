@@ -10,7 +10,7 @@
     <packaging>bundle</packaging>
 
     <properties>
-        <camel.version>2.12.4</camel.version>
+        <camel.version>3.2.0</camel.version>
     </properties>
 
     <dependencies>
